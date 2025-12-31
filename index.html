@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <title>Ordre du Glaive — Gardiens des Lois</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --blue:#38bdf8;
-  --silver:#e5e7eb;
-  --dark:#020617;
   --panel:#020617f2;
+  --bg:#020617;
+  --text:#e5e7eb;
 }
 
 *{box-sizing:border-box}
@@ -20,7 +20,22 @@ body{
   margin:0;
   font-family:Inter,sans-serif;
   background:radial-gradient(circle at top,#020617,#000);
-  color:var(--silver);
+  color:var(--text);
+}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--panel);
+  border:1px solid var(--blue);
+  padding:20px 32px;
+  border-radius:16px;
+  display:none;
+  z-index:100;
+  box-shadow:0 0 40px rgba(56,189,248,.6);
 }
 
 /* LOGIN */
@@ -36,136 +51,63 @@ body{
 
 .login-box{
   background:var(--panel);
-  padding:42px;
+  padding:40px;
   border:1px solid var(--blue);
   border-radius:18px;
   text-align:center;
-  box-shadow:0 0 50px rgba(56,189,248,.35);
+  animation:float 3s ease-in-out infinite;
 }
 
-.login-box h1{
-  font-family:Cinzel,serif;
-  color:var(--blue);
-  margin-bottom:6px;
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
 }
 
-.login-box p{
-  font-size:13px;
-  color:#7dd3fc;
-}
-
+.login-box h1{font-family:Cinzel;color:var(--blue)}
 .login-box input{
-  width:100%;
-  padding:12px;
-  background:#020617;
-  border:1px solid #334155;
-  color:white;
-  margin:18px 0;
-  border-radius:6px;
+  width:100%;padding:12px;margin:16px 0;
+  background:#020617;color:white;border:1px solid #334155;border-radius:6px;
 }
-
-.login-box input:focus{
-  outline:none;
-  border-color:var(--blue);
-}
-
 .login-box button{
+  padding:12px 22px;
   background:linear-gradient(135deg,var(--blue),#7dd3fc);
-  border:none;
-  padding:12px 20px;
-  font-weight:600;
-  cursor:pointer;
-  border-radius:8px;
+  border:none;border-radius:8px;font-weight:600;cursor:pointer;
 }
-
-#error{
-  color:#f87171;
-  display:none;
-  margin-top:10px;
-}
+#error{color:#f87171;display:none}
 
 /* HEADER */
-header{
-  text-align:center;
-  padding:40px 20px 30px;
-}
-
-header h1{
-  font-family:Cinzel,serif;
-  letter-spacing:4px;
-  color:var(--blue);
-}
-
-header p{
-  color:#7dd3fc;
-  font-size:14px;
-  max-width:760px;
-  margin:auto;
-}
+header{text-align:center;padding:40px 20px}
+header h1{font-family:Cinzel;color:var(--blue)}
+header p{color:#7dd3fc;max-width:800px;margin:auto}
 
 /* CONTROLS */
-.controls{
-  text-align:center;
-  margin:30px 0;
-}
-
+.controls{text-align:center;margin:20px}
 .controls button{
-  background:linear-gradient(135deg,var(--blue),#7dd3fc);
-  color:#020617;
-  border:none;
-  padding:12px 22px;
   margin:6px;
-  font-weight:600;
-  border-radius:10px;
-  cursor:pointer;
+  padding:12px 20px;
+  border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),#7dd3fc);
+  cursor:pointer;font-weight:600;
   transition:.25s;
 }
-
-.controls button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 25px rgba(56,189,248,.6);
-}
+.controls button:hover{transform:translateY(-4px)}
 
 /* SECTIONS */
-.section{
-  max-width:1200px;
-  margin:60px auto;
-  padding:0 20px;
-}
+.section{max-width:1200px;margin:40px auto;padding:0 20px}
+.section h2{font-family:Cinzel;color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 
-.section h2{
-  font-family:Cinzel,serif;
-  color:var(--blue);
-  border-bottom:1px solid var(--blue);
-  padding-bottom:6px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:22px;
-}
-
+/* CARD */
 .card{
   background:var(--panel);
+  padding:18px;border-radius:16px;
   border:1px solid #334155;
-  border-radius:18px;
-  padding:20px;
-  transition:.3s;
 }
-
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 18px 40px rgba(56,189,248,.35);
-}
+.card h3{margin-top:0}
 
 /* INPUTS */
-label{
-  font-size:12px;
-  color:#bae6fd;
-}
-
-input,textarea{
+label{font-size:12px;color:#bae6fd}
+input,textarea,select{
   width:100%;
   background:#020617;
   color:white;
@@ -173,64 +115,39 @@ input,textarea{
   padding:8px;
   margin-bottom:10px;
   border-radius:6px;
-  transition:.2s;
 }
 
-input:focus,textarea:focus{
-  outline:none;
-  border-color:var(--blue);
-}
-
-/* MODAL */
+/* MODALS */
 .modal{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:rgba(0,0,0,.85);
   display:none;
   justify-content:center;
   align-items:center;
   z-index:20;
 }
-
 .modal-box{
   background:var(--panel);
   border:1px solid var(--blue);
   padding:30px;
-  border-radius:18px;
-  max-width:520px;
-  width:90%;
-  max-height:80vh;
-  overflow:auto;
+  border-radius:16px;
+  max-width:500px;width:90%;
 }
 
-.modal-box h3{
-  font-family:Cinzel,serif;
-  color:var(--blue);
-}
-
-.modal-box button{
-  margin-top:10px;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:30px;
-  font-size:12px;
-  color:#94a3b8;
-}
+footer{text-align:center;padding:20px;font-size:12px;color:#94a3b8}
 </style>
 </head>
 
 <body>
 
+<div id="toast"></div>
+
 <div id="login">
   <div class="login-box">
     <h1>Accès — Gardien de la Loi</h1>
-    <p>Autorisation impériale requise</p>
     <input type="password" id="pwd" placeholder="Mot de passe">
     <button onclick="check()">Entrer</button>
-    <div id="error">Accès refusé — violation de la Loi</div>
+    <div id="error">Accès refusé</div>
   </div>
 </div>
 
@@ -238,109 +155,131 @@ footer{
   <h1>ORDRE DU GLAIVE</h1>
   <p>
     Registre confidentiel du Wandenreich.<br>
-    Accès autorisé uniquement aux membres de l’aile des <strong>Gardiens des Lois</strong>.
+    Accès réservé aux <strong>Gardiens des Lois</strong>.<br><br>
+    <em>« La Loi est absolue. »</em><br>
+    — <strong>Vlad Graham</strong>
   </p>
 </header>
 
 <div class="controls">
-  <button onclick="add()">➕ Ajouter un Quincy</button>
-  <button onclick="save()">💠 Enregistrer le registre</button>
-  <button onclick="openManage()">🗑️ Gestion de l’effectif</button>
+  <button onclick="openAdd()">➕ Ajouter un Quincy</button>
+  <button onclick="save()">💠 Enregistrer</button>
+  <button onclick="openManage()">🗑️ Supprimer</button>
+  <button onclick="openHistory()">📜 Historique</button>
 </div>
 
-<div class="section">
-  <h2>Haut Commandement</h2>
-  <div class="grid" id="haut"></div>
-</div>
+<div class="section"><h2>Haut Commandement</h2><div class="grid" id="haut"></div></div>
+<div class="section"><h2>Commandement</h2><div class="grid" id="cmd"></div></div>
+<div class="section"><h2>Hommes du Rang</h2><div class="grid" id="rang"></div></div>
 
-<div class="section">
-  <h2>Commandement</h2>
-  <div class="grid" id="cmd"></div>
-</div>
+<footer>Ordre du Glaive — La Loi est absolue.</footer>
 
-<div class="section">
-  <h2>Hommes du Rang</h2>
-  <div class="grid" id="rang"></div>
-</div>
-
-<footer>
-  Ordre du Glaive — La Loi est absolue.
-</footer>
-
-<div class="modal" id="manage">
+<!-- MODALS -->
+<div class="modal" id="addModal">
   <div class="modal-box">
-    <h3>Gestion de l’effectif</h3>
-    <div id="list"></div>
-    <button onclick="closeManage()">Fermer</button>
+    <h3>Ajouter un Quincy</h3>
+    <input id="newName" placeholder="Nom">
+    <select id="newGrade">
+      <option>Haut Commandement</option>
+      <option>Commandement</option>
+      <option>Hommes du Rang</option>
+    </select>
+    <button onclick="add()">Ajouter</button>
   </div>
 </div>
 
+<div class="modal" id="manage"><div class="modal-box"><div id="list"></div><button onclick="closeAll()">Fermer</button></div></div>
+<div class="modal" id="history"><div class="modal-box"><h3>Historique</h3><div id="logs"></div><button onclick="closeAll()">Fermer</button></div></div>
+
 <script>
-const defaultMembers=[
-{n:"Vlad Graham",g:"Haut Commandement"},
-{n:"Vaelis Parnkgjas",g:"Haut Commandement"},
-{n:"Paul Parnkgjas",g:"Haut Commandement"},
-{n:"Velmar LeVaar",g:"Haut Commandement"},
-{n:"Albin Liebehenschel",g:"Haut Commandement"},
-{n:"Friederich Severin",g:"Commandement"},
-{n:"Aiden Severin",g:"Commandement"},
-{n:"Eisen Severin",g:"Commandement"}
+const PASSWORD="Vlad glaive";
+
+let members=JSON.parse(localStorage.getItem("members"))||[
+  {n:"Vlad Graham",g:"Haut Commandement",s:"",o:"",i:"",d:0}
 ];
 
-let members = JSON.parse(localStorage.getItem("members")) || defaultMembers;
+let historyLog=JSON.parse(localStorage.getItem("history"))||[];
+
+function toast(msg){
+const t=document.getElementById("toast");
+t.innerText=msg;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",1800);
+}
+
+function logAction(msg){
+historyLog.push(new Date().toLocaleString()+" — "+msg);
+localStorage.setItem("history",JSON.stringify(historyLog));
+}
 
 function check(){
-  if(pwd.value==="Vlad glaive") login.style.display="none";
-  else error.style.display="block";
+if(pwd.value===PASSWORD){
+login.style.display="none";
+logAction("Connexion autorisée");
+toast("Accès autorisé");
+}else error.style.display="block";
+}
+
+function updateField(i,field,value){
+members[i][field]=value;
+localStorage.setItem("members",JSON.stringify(members));
+logAction("Modification : "+members[i].n+" ("+field+")");
 }
 
 function render(){
-["haut","cmd","rang"].forEach(id=>document.getElementById(id).innerHTML="");
+haut.innerHTML=cmd.innerHTML=rang.innerHTML="";
 members.forEach((m,i)=>{
-const section =
-m.g==="Haut Commandement" ? "haut" :
-m.g==="Commandement" ? "cmd" : "rang";
-
+const sec=m.g==="Haut Commandement"?"haut":m.g==="Commandement"?"cmd":"rang";
 const c=document.createElement("div");
 c.className="card";
 c.innerHTML=`
-<h3 contenteditable>${m.n}</h3>
-<label>Statut</label><input value="${m.s||""}" onchange="m.s=this.value">
-<label>Observation</label><textarea onchange="m.o=this.value">${m.o||""}</textarea>
-<label>Informations supplémentaires</label><textarea onchange="m.i=this.value">${m.i||""}</textarea>
-<label>Dettes (Kans)</label>
-<input type="number" value="${m.d||0}" onchange="m.d=this.value">
+<h3 contenteditable oninput="updateField(${i},'n',this.innerText)">${m.n}</h3>
+<label>Statut</label><input value="${m.s}" oninput="updateField(${i},'s',this.value)">
+<label>Observation</label><textarea oninput="updateField(${i},'o',this.value)">${m.o}</textarea>
+<label>Informations supplémentaires</label><textarea oninput="updateField(${i},'i',this.value)">${m.i}</textarea>
+<label>Dettes (Kans)</label><input type="number" value="${m.d}" oninput="updateField(${i},'d',this.value)">
 `;
-document.getElementById(section).appendChild(c);
+document.getElementById(sec).appendChild(c);
 });
 }
 
 function save(){
 localStorage.setItem("members",JSON.stringify(members));
-alert("Registre consigné sous l’autorité des Gardiens des Lois.");
+logAction("Registre enregistré");
+toast("Registre sauvegardé");
 }
 
+function openAdd(){addModal.style.display="flex"}
+
 function add(){
-members.push({n:"Nouveau Quincy",g:"Hommes du Rang",d:0});
-render();
+members.push({n:newName.value,g:newGrade.value,s:"",o:"",i:"",d:0});
+logAction("Quincy ajouté : "+newName.value);
+save(); render();
+toast("Quincy ajouté");
+addModal.style.display="none";
 }
 
 function openManage(){
-list.innerHTML = members.map((m,i)=>
-`• ${m.n} — ${m.g}
-<button onclick="del(${i})">Supprimer</button><br>`
-).join("");
+list.innerHTML=members.map((m,i)=>`${m.n} — ${m.g} <button onclick="del(${i})">Supprimer</button>`).join("<br>");
 manage.style.display="flex";
 }
 
 function del(i){
-if(confirm("Confirmer la suppression ?")){
+logAction("Quincy supprimé : "+members[i].n);
 members.splice(i,1);
 save(); render(); openManage();
-}
+toast("Quincy supprimé");
 }
 
-function closeManage(){manage.style.display="none"}
+function openHistory(){
+historyLog=JSON.parse(localStorage.getItem("history"))||[];
+logs.innerHTML=historyLog.join("<br>")||"Aucune action";
+history.style.display="flex";
+}
+
+function closeAll(){
+document.querySelectorAll(".modal").forEach(m=>m.style.display="none");
+}
 
 render();
 </script>
